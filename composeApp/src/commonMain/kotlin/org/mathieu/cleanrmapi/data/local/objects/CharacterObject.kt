@@ -12,6 +12,7 @@ import org.mathieu.cleanrmapi.domain.character.models.CharacterDetails
 import org.mathieu.cleanrmapi.domain.character.models.CharacterGender
 import org.mathieu.cleanrmapi.domain.character.models.CharacterStatus
 import org.mathieu.cleanrmapi.domain.episode.models.Episode
+import org.mathieu.cleanrmapi.domain.location.models.LocationPreview
 
 /**
  * Represents a character entity stored in the SQLite database. This object provides fields
@@ -50,6 +51,10 @@ class CharacterObject(
     val created: String
 )
 
+/**
+ * Dans cette fonction, j'ai modifié la définition des données origin et location
+ * pour qu'elles soient de type LocationPreview.
+ */
 internal suspend fun CharacterObject.toDetailedModel(
     idsToEpisodesConverter: suspend (episodesIds: String) -> List<Episode> = { emptyList() }
 ) = CharacterDetails(
@@ -59,13 +64,15 @@ internal suspend fun CharacterObject.toDetailedModel(
     species = species,
     type = type,
     gender = tryOrNull { CharacterGender.valueOf(gender) } ?: CharacterGender.Unknown,
-    origin = originName,
-    location = locationName,
+    origin = LocationPreview(originId, originName),
+    location = LocationPreview(locationId, locationName),
     avatarUrl = image,
     episodes = idsToEpisodesConverter(episodesIds)
 )
 
-
+/**
+ * On renvoit toujours bien le nom de l'origine et de la localisation
+ */
 internal fun CharacterResponse.toDBObject() = CharacterObject(
     id = id,
     name = name,
