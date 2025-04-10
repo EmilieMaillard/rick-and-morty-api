@@ -1,6 +1,7 @@
 package org.mathieu.cleanrmapi.domain.character.models
 
 import org.mathieu.cleanrmapi.domain.episode.models.Episode
+import org.mathieu.cleanrmapi.domain.location.models.LocationPreview
 
 /**
  * Represents a detailed description of a Rick&Morty character.
@@ -13,7 +14,7 @@ import org.mathieu.cleanrmapi.domain.episode.models.Episode
  * @property type Further description or subspecies of the character.
  * @property gender The gender of the character.
  * @property origin The origin location of the character, represented as a name.
- * @property location The current or last known location of the character, represented as a name.
+ * @property location The current or last known location of the character, represented as a name with a LocationPreview class.
  * @property avatarUrl A URL pointing to an avatar or image of the character.
  */
 data class CharacterDetails(
@@ -24,8 +25,8 @@ data class CharacterDetails(
     val species: String,
     val type: String,
     val gender: CharacterGender,
-    val origin: String,
-    val location: String,
+    val origin: LocationPreview,
+    val location: LocationPreview,
     val avatarUrl: String
 )
 

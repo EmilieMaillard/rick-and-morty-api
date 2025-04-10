@@ -142,10 +142,7 @@ private object CharacterDetailsContent {
             }
 
         }
-
-
     }
-
 
     @OptIn(ExperimentalFoundationApi::class)
     @Composable
